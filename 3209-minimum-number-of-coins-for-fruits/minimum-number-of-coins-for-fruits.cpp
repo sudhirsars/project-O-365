@@ -1,23 +1,27 @@
 class Solution {
 public:
-int dp[1001];
-int n;
-int solve(vector<int> &prices,int ind){
-    if(ind>=n){
-        return 0;
-    }
-    if(ind==n-1)return prices[ind];
-    if(dp[ind]!=-1)return dp[ind];
-    int c=prices[ind];
-    int p=INT_MAX;
-    for(int i=ind+1;i<min(n+1,2*ind+3);i++){
-        p=min(p,solve(prices,i));
-    }
-    return dp[ind]=p+c;
-}
-    int minimumCoins(vector<int>& prices) {
-        n=prices.size();
-        memset(dp,-1,sizeof(dp));
-        return solve(prices,0);
+    // int solve(int i,vector<int>&p){
+    //     if(i>=p.size())return 0;
+
+    //     int ans=1e8;
+    //     int n=p.size();
+    //     for(int k=i+1; k < min(n+1, 2*i+3) ;k++){
+    //         ans=min(ans,p[i]+solve(k,p));
+    //     }
+    //     return ans;
+    // }   
+    int minimumCoins(vector<int>& p) {
+        int n=p.size();
+
+        vector<int> dp(n+1,0);
+
+        for(int i=n-1;i>=0;i--){
+            int ans=1e8;
+            for(int k=i+1; k < min(n+1, 2*i+3) ;k++){
+                ans=min(ans,p[i]+dp[k]);
+            }
+            dp[i]=ans;
+        }
+        return dp[0];
     }
 };
