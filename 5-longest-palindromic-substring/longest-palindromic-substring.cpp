@@ -6,9 +6,10 @@ public:
             i--;
             j++;
         }
-        // i++;
-        // j--;
-        return s.substr(i+1 , j - i - 1 );
+        i++;
+        j--;
+        
+        return s.substr(i , j - i + 1 );
     }
     string longestPalindrome(string s) {
         int n=s.length();
